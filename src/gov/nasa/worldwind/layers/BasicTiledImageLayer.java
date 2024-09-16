@@ -55,7 +55,8 @@ import java.util.Map;
 public class BasicTiledImageLayer extends TiledImageLayer implements BulkRetrievable
 {
     protected final Object fileLock = new Object();
-
+    protected long averageFileSize=BasicTiledImageLayerBulkDownloader.DEFAULT_AVERAGE_FILE_SIZE; // The average file size of an individual tile to use for size estimates.
+    
     // Layer resource properties.
     protected static final int RESOURCE_ID_OGC_CAPABILITIES = 1;
 
@@ -523,12 +524,18 @@ public class BasicTiledImageLayer extends TiledImageLayer implements BulkRetriev
 
         BasicTiledImageLayerBulkDownloader downloader = new BasicTiledImageLayerBulkDownloader(this, sector, resolution,
             fileStore != null ? fileStore : this.getDataFileStore(), null);
-
+        downloader.setAverageFileSize(this.averageFileSize);
         return downloader.getEstimatedMissingDataSize();
     }
 
-    // *** Tile download ***
-    // *** Tile download ***
+    /**
+     * Set the average size of a tile image to use in estimating download sizes.
+     * @param value The average size of a tile image.
+     */
+    public void setAverageFileSize(long value) {
+        this.averageFileSize=value;
+    }
+
     // *** Tile download ***
 
     protected void retrieveTexture(TextureTile tile, DownloadPostProcessor postProcessor)

@@ -58,6 +58,7 @@ public class BasicTiledImageLayerBulkDownloader extends BulkRetrievalThread
     protected final BasicTiledImageLayer layer;
     protected final int level;
     protected ArrayList<TextureTile> missingTiles;
+    protected long averageFileSize=DEFAULT_AVERAGE_FILE_SIZE;
 
     /**
      * Constructs a downloader to retrieve imagery not currently available in the WorldWind file cache.
@@ -472,7 +473,7 @@ public class BasicTiledImageLayerBulkDownloader extends BulkRetrievalThread
             }
         }
 
-        Long averageTileSize = DEFAULT_AVERAGE_FILE_SIZE;
+        Long averageTileSize = this.averageFileSize;
         if (count > 0 && size > 0)
         {
             averageTileSize = size / count;
@@ -480,6 +481,14 @@ public class BasicTiledImageLayerBulkDownloader extends BulkRetrievalThread
         }
 
         return averageTileSize;
+    }
+    
+    /**
+     * Set the average size of a tile image to use in estimating download sizes.
+     * @param value The average size of a tile image.
+     */
+    public void setAverageFileSize(long value) {
+        this.averageFileSize=value;
     }
 
     protected long computeAverageTileSize(File dir)

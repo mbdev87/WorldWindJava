@@ -196,18 +196,16 @@ public class WMSTiledImageLayer extends BasicTiledImageLayer
             String version = params.getStringValue(AVKey.WMS_VERSION);
 
             String coordSystemKey;
-            String defaultCS;
+            String defaultCS = "EPSG:4326";
             if (version == null || WWUtil.compareVersion(version, "1.3.0") >= 0)
             {
                 this.wmsVersion = MAX_VERSION;
                 coordSystemKey = "&crs=";
-                defaultCS = "CRS:84"; // would like to do EPSG:4326 but that's incompatible with our old WMS server, see WWJ-474
             }
             else
             {
                 this.wmsVersion = version;
                 coordSystemKey = "&srs=";
-                defaultCS = "EPSG:4326";
             }
 
             String coordinateSystem = params.getStringValue(AVKey.COORDINATE_SYSTEM);
@@ -220,7 +218,6 @@ public class WMSTiledImageLayer extends BasicTiledImageLayer
             if (this.URLTemplate == null)
             {
                 sb = new StringBuffer(WWXML.fixGetMapString(tile.getLevel().getService()));
-
                 if (!sb.toString().toLowerCase().contains("service=wms"))
                     sb.append("service=WMS");
                 sb.append("&request=GetMap");
