@@ -25,7 +25,7 @@
  * NASA World Wind Java (WWJ)  can be found in the WorldWindJava-v2.2 3rd-party
  * notices and licenses PDF found in code directory.
  */
-package gov.nasa.worldwindx.examples.util;
+package gov.nasa.worldwindx.tools;
 
 import gov.nasa.worldwind.cache.BasicDataFileStore;
 import gov.nasa.worldwind.geom.LatLon;
