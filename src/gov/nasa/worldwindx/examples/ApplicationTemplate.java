@@ -36,7 +36,7 @@ import gov.nasa.worldwind.layers.*;
 import gov.nasa.worldwind.layers.placename.PlaceNameLayer;
 import gov.nasa.worldwind.util.*;
 import gov.nasa.worldwindx.examples.util.*;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 
@@ -273,6 +273,7 @@ public class ApplicationTemplate {
     }
 
     static {
+        FlatLightLaf.setup();
         System.setProperty("java.net.useSystemProxies", "true");
         if (Configuration.isMacOS()) {
             System.setProperty("apple.laf.useScreenMenuBar", "true");
